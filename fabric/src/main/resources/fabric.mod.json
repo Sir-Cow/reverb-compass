@@ -9,15 +9,15 @@
     ],
     "contact": {
         "homepage": "",
-        "sources": "",
-        "issues": ""
+        "sources": "https://github.com/Sir-Cow/reverb-compass",
+        "issues": "https://github.com/Sir-Cow/reverb-compass/issues"
     },
     "license": "${license}",
     "icon": "icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.example.examplemod.ExampleMod"
+          "sircow.reverbcompass.ReverbCompass"
         ]
     },
     "mixins": [
