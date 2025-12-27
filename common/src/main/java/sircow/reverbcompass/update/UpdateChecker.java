@@ -1,0 +1,71 @@
+package sircow.reverbcompass.update;
+
+import com.google.gson.*;
+import sircow.reverbcompass.Constants;
+import sircow.reverbcompass.platform.Services;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
+
+public final class UpdateChecker {
+    private static final String PROJECT_ID = "reverb-compass";
+    private static final String GAME_VERSION = "1.21.11";
+    private static final String LOADER = Services.PLATFORM.getPlatformName().toLowerCase();
+    private static volatile String latestVersion = null;
+    private static volatile boolean checked = false;
+
+    public static void checkAsync(Runnable callback) {
+        if (checked) return;
+        checked = true;
+
+        CompletableFuture.runAsync(() -> {
+            try {
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create("https://api.modrinth.com/v2/project/" + PROJECT_ID + "/version"))
+                        .header("User-Agent", "reverbcompass-update-checker")
+                        .GET()
+                        .build();
+
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                JsonArray versions = JsonParser.parseString(response.body()).getAsJsonArray();
+                String best = null;
+
+                for (JsonElement element : versions) {
+                    JsonObject obj = element.getAsJsonObject();
+
+                    JsonArray gv = obj.getAsJsonArray("game_versions");
+                    if (!gv.contains(new JsonPrimitive(GAME_VERSION))) continue;
+
+                    JsonArray loaders = obj.getAsJsonArray("loaders");
+                    if (!loaders.contains(new JsonPrimitive(LOADER))) continue;
+
+                    String ver = obj.get("version_number").getAsString();
+                    if (best == null) best = ver;
+                }
+
+                latestVersion = best;
+            }
+            catch (Exception ignored) {}
+
+            if (callback != null) callback.run();
+        });
+    }
+
+    public static boolean hasUpdate() {
+        if (latestVersion == null) return false;
+
+        SemVer current = SemVer.parse(Constants.INSTANCE.getVersion());
+        SemVer latest = SemVer.parse(latestVersion);
+
+        if (current == null || latest == null) return false;
+        return latest.compareTo(current) > 0;
+    }
+
+    public static String getLatest() {
+        return latestVersion;
+    }
+}

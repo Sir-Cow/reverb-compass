@@ -6,8 +6,8 @@ issueTrackerURL="https://github.com/Sir-Cow/reverb-compass/issues"
 modId = "${mod_id}"
 version = "${version}"
 displayName = "${mod_name}"
-#updateJSONURL=
-#displayURL=
+updateJSONURL= "https://updates.blamejared.com/get?n=reverb-compass&gv=${minecraft_version}&ml=neoforge"
+displayURL= "https://github.com/Sir-Cow/reverb-compass"
 logoFile="icon.png"
 credits="${credits}"
 authors = "${mod_author}"

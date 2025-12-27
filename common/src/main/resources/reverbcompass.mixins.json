@@ -4,7 +4,10 @@
   "package": "sircow.reverbcompass.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [],
+  "mixins": [
+    "CompassItemMixin",
+    "ItemStackMixin"
+  ],
   "client": [],
   "server": [],
   "injectors": {

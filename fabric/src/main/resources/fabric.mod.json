@@ -8,7 +8,7 @@
         "${mod_author}"
     ],
     "contact": {
-        "homepage": "",
+        "homepage": "https://modrinth.com/mod/reverb-compass",
         "sources": "https://github.com/Sir-Cow/reverb-compass",
         "issues": "https://github.com/Sir-Cow/reverb-compass/issues"
     },
@@ -35,7 +35,7 @@
     },
     "custom": {
         "modmenu": {
-            "update_checker": false
+            "update_checker": true
         }
     }
 }
