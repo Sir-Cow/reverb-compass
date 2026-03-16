@@ -7,16 +7,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import org.jspecify.annotations.NonNull;
+import org.jetbrains.annotations.NotNull;
 import sircow.reverbcompass.components.ModComponents;
 
-public final class ReverbCompassRecipe extends CustomRecipe {
+public class ReverbCompassRecipe extends CustomRecipe {
     public ReverbCompassRecipe(CraftingBookCategory category) {
         super(category);
     }
 
-    @Override
-    public boolean matches(CraftingInput input, @NonNull Level level) {
+    public boolean matches(CraftingInput input, @NotNull Level level) {
         if (input.ingredientCount() != 2) return false;
 
         boolean foundCompass = false;
@@ -38,8 +37,7 @@ public final class ReverbCompassRecipe extends CustomRecipe {
         return foundCompass && foundEchoShard;
     }
 
-    @Override
-    public @NonNull ItemStack assemble(CraftingInput craftingInput, HolderLookup.@NonNull Provider provider) {
+    public @NotNull ItemStack assemble(CraftingInput craftingInput, HolderLookup.@NotNull Provider provider) {
         ItemStack lodestoneCompass = ItemStack.EMPTY;
 
         for (ItemStack stack : craftingInput.items()) {
@@ -58,12 +56,12 @@ public final class ReverbCompassRecipe extends CustomRecipe {
     }
 
     @Override
-    public @NonNull CraftingBookCategory category() {
-        return CraftingBookCategory.MISC;
+    public boolean canCraftInDimensions(int i, int i1) {
+        return false;
     }
 
     @Override
-    public @NonNull RecipeSerializer<? extends CustomRecipe> getSerializer() {
-        return ModRecipeSerializers.REVERB_COMPASS;
+    public @NotNull RecipeSerializer<ReverbCompassRecipe> getSerializer() {
+        return ModRecipes.REVERB_COMPASS_SERIALIZER.get();
     }
 }

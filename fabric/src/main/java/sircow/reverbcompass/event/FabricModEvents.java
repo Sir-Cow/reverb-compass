@@ -11,8 +11,6 @@ import net.minecraft.network.chat.Style;
 import sircow.reverbcompass.Constants;
 import sircow.reverbcompass.update.UpdateChecker;
 
-import java.net.URI;
-
 public class FabricModEvents {
     private static boolean updateCheckScheduled = false;
 
@@ -32,8 +30,8 @@ public class FabricModEvents {
                             if (latest == null) return;
 
                             if (UpdateChecker.hasUpdate()) {
-                                ClickEvent click = new ClickEvent.OpenUrl(URI.create("https://modrinth.com/mod/reverb-compass/version/" + latest));
-                                HoverEvent hover = new HoverEvent.ShowText(Component.literal("Open version page"));
+                                ClickEvent click = new ClickEvent(ClickEvent.Action.OPEN_URL,"https://modrinth.com/mod/reverb-compass/version/" + latest);
+                                HoverEvent hover = new HoverEvent(HoverEvent.Action.SHOW_TEXT,Component.literal("Open version page"));
                                 Style updateLink = Style.EMPTY
                                         .withClickEvent(click)
                                         .withHoverEvent(hover)

@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:adventure/use_lodestone",
+  "parent": "minecraft:nether/use_lodestone",
   "criteria": {
     "use_reverb_compass": {
       "trigger": "reverbcompass:use_reverb_compass"
@@ -13,7 +13,6 @@
       "count": 1,
       "id": "minecraft:recovery_compass"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.reverbcompass.adventure.use_reverb_compass.title"
     }

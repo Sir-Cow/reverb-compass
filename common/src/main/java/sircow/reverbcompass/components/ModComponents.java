@@ -1,8 +1,11 @@
 package sircow.reverbcompass.components;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.world.item.Items;
+import sircow.reverbcompass.Constants;
 
 import java.util.function.Supplier;
 

@@ -5,14 +5,12 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import sircow.reverbcompass.Constants;
 import sircow.reverbcompass.update.UpdateChecker;
 
-import java.net.URI;
 import java.util.Objects;
 
 public class NeoforgeModEvents {
@@ -34,8 +32,8 @@ public class NeoforgeModEvents {
                     if (latest == null) return;
 
                     if (UpdateChecker.hasUpdate()) {
-                        ClickEvent click = new ClickEvent.OpenUrl(URI.create("https://modrinth.com/mod/reverb-compass/version/" + latest));
-                        HoverEvent hover = new HoverEvent.ShowText(Component.literal("Open version page"));
+                        ClickEvent click = new ClickEvent(ClickEvent.Action.OPEN_URL,"https://modrinth.com/mod/reverb-compass/version/" + latest);
+                        HoverEvent hover = new HoverEvent(HoverEvent.Action.SHOW_TEXT,Component.literal("Open version page"));
                         Style updateLink = Style.EMPTY
                                 .withClickEvent(click)
                                 .withHoverEvent(hover)

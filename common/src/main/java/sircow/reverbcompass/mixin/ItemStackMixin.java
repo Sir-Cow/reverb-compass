@@ -6,7 +6,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CompassItem;
 import net.minecraft.world.item.ItemStack;
@@ -23,8 +23,8 @@ import sircow.reverbcompass.trigger.ModTriggers;
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
-    private void reverbCompass$onUse(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        ItemStack stack = (ItemStack) (Object) this;
+    private void reverbCompass$onUse(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
+        ItemStack stack = (ItemStack)(Object)this;
         if (!(stack.getItem() instanceof CompassItem) || !stack.has(ModComponents.REVERB_COMPASS.get())) return;
 
         LodestoneTracker tracker = stack.get(DataComponents.LODESTONE_TRACKER);
@@ -50,14 +50,13 @@ public class ItemStackMixin {
             result.remove(ModComponents.REVERB_COMPASS.get());
             stack.shrink(1);
 
-            if (stack.isEmpty()) {
-                player.setItemInHand(hand, result);
-            }
-            else {
-                player.getInventory().placeItemBackInInventory(result);
-            }
-        }
+            if (stack.isEmpty()) player.setItemInHand(hand, result);
+            else player.getInventory().placeItemBackInInventory(result);
 
-        cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
+            cir.setReturnValue(InteractionResultHolder.success(stack));
+        }
+        else {
+            cir.setReturnValue(InteractionResultHolder.success(stack));
+        }
     }
 }
