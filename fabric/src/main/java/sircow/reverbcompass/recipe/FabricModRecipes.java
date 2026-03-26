@@ -2,16 +2,15 @@ package sircow.reverbcompass.recipe;
 
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import sircow.reverbcompass.Constants;
 
 public class FabricModRecipes {
-    private static <T extends CustomRecipe> void register(ModRecipes.RecipeEntry<T> entry) {
-        var registered = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constants.id(entry.id), entry.factory.get());
-        entry.bind(() -> registered);
+    private static <T extends RecipeSerializer<?>> void register(String id, T serializer) {
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, Constants.id(id), serializer);
     }
 
     public static void registerFabricModRecipes() {
-        register(ModRecipes.REVERB_COMPASS);
+        register("reverb_compass", ModRecipes.REVERB_COMPASS);
     }
 }

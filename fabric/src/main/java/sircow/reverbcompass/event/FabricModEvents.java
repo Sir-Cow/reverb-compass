@@ -45,7 +45,7 @@ public class FabricModEvents {
                                         .append(Component.literal(latest).setStyle(updateLink))
                                         .append(Component.literal(" (current: " + current + ")").withStyle(ChatFormatting.WHITE));
 
-                                client.player.displayClientMessage(message, false);
+                                client.player.sendSystemMessage(message);
                             }
                         });
                     });

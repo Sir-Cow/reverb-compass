@@ -41,23 +41,16 @@ public class ItemStackMixin {
             level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE2.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
             level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE3.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
 
-            if (player instanceof ServerPlayer serverPlayer) {
-                ModTriggers.USE_REVERB_COMPASS.get().trigger(serverPlayer);
-            }
+            if (player instanceof ServerPlayer serverPlayer) ModTriggers.USE_REVERB_COMPASS.get().trigger(serverPlayer);
 
             ItemStack result = stack.copy();
             result.setCount(1);
             result.remove(ModComponents.REVERB_COMPASS.get());
             stack.shrink(1);
 
-            if (stack.isEmpty()) {
-                player.setItemInHand(hand, result);
-            }
-            else {
-                player.getInventory().placeItemBackInInventory(result);
-            }
+            if (stack.isEmpty()) player.setItemInHand(hand, result);
+            else player.getInventory().placeItemBackInInventory(result);
         }
-
         cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
     }
 }

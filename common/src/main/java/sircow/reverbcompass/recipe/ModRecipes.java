@@ -1,12 +1,16 @@
 package sircow.reverbcompass.recipe;
 
+import com.mojang.serialization.MapCodec;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.util.function.Supplier;
 
 public class ModRecipes {
-    public static final RecipeEntry<ReverbCompassRecipe> REVERB_COMPASS = new RecipeEntry<>("reverb_compass", () -> new CustomRecipe.Serializer<>(ReverbCompassRecipe::new));
+    public static final RecipeSerializer<ReverbCompassRecipe> REVERB_COMPASS = new RecipeSerializer<>(MapCodec.unit(new ReverbCompassRecipe()), StreamCodec.unit(new ReverbCompassRecipe()));
+
+    private ModRecipes() {}
 
     public static class RecipeEntry<T extends CustomRecipe> {
         public final String id;

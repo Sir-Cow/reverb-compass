@@ -4,10 +4,11 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.advancements.CriterionTriggerInstance;
-import net.minecraft.advancements.criterion.CriterionValidator;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.loot.ValidationContextSource;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,6 +59,6 @@ public class UseReverbCompassTrigger implements CriterionTrigger<UseReverbCompas
         public Instance() {}
 
         @Override
-        public void validate(@NotNull CriterionValidator validator) {}
+        public void validate(@NonNull ValidationContextSource validationContextSource) {}
     }
 }

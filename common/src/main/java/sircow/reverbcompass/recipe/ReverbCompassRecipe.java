@@ -1,6 +1,5 @@
 package sircow.reverbcompass.recipe;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.CompassItem;
 import net.minecraft.world.item.ItemStack;
@@ -11,10 +10,6 @@ import org.jspecify.annotations.NonNull;
 import sircow.reverbcompass.components.ModComponents;
 
 public final class ReverbCompassRecipe extends CustomRecipe {
-    public ReverbCompassRecipe(CraftingBookCategory category) {
-        super(category);
-    }
-
     @Override
     public boolean matches(CraftingInput input, @NonNull Level level) {
         if (input.ingredientCount() != 2) return false;
@@ -39,7 +34,7 @@ public final class ReverbCompassRecipe extends CustomRecipe {
     }
 
     @Override
-    public @NonNull ItemStack assemble(CraftingInput craftingInput, HolderLookup.@NonNull Provider provider) {
+    public @NonNull ItemStack assemble(CraftingInput craftingInput) {
         ItemStack lodestoneCompass = ItemStack.EMPTY;
 
         for (ItemStack stack : craftingInput.items()) {

@@ -47,7 +47,7 @@ public class NeoforgeModEvents {
                                 .append(Component.literal(latest).setStyle(updateLink))
                                 .append(Component.literal(" (current: " + current + ")").withStyle(ChatFormatting.WHITE));
 
-                        player.displayClientMessage(message, false);
+                        player.sendSystemMessage(message);
                     }
                 }));
             }
