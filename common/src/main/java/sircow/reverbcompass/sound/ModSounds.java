@@ -1,6 +1,5 @@
 package sircow.reverbcompass.sound;
 
-import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import sircow.reverbcompass.Constants;
 
