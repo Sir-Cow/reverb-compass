@@ -1,7 +1,6 @@
 package sircow.reverbcompass.trigger;
 
 import net.minecraft.advancements.CriterionTrigger;
-import sircow.reverbcompass.trigger.custom.CustomTrigger;
 
 import java.util.function.Supplier;
 

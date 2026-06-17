@@ -1,4 +1,4 @@
-package sircow.reverbcompass.trigger.custom;
+package sircow.reverbcompass.trigger;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
