@@ -1,29 +1,23 @@
 package sircow.reverbcompass.trigger;
 
 import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.resources.Identifier;
+import sircow.reverbcompass.Constants;
 
-import java.util.function.Supplier;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ModTriggers {
-    public static final TriggerEntry<CustomTrigger> USE_REVERB_COMPASS = new TriggerEntry<>("use_reverb_compass", CustomTrigger::new);
+    private static final Map<Identifier, CriterionTrigger<?>> TRIGGERS = new LinkedHashMap<>();
 
-    public static class TriggerEntry<T extends CriterionTrigger<?>> {
-        public final String id;
-        public final Supplier<T> factory;
-        private Supplier<T> trigger;
+    public static final CustomTrigger USE_REVERB_COMPASS = register("use_reverb_compass", new CustomTrigger());
 
-        public TriggerEntry(String id, Supplier<T> factory) {
-            this.id = id;
-            this.factory = factory;
-        }
+    private static <T extends CriterionTrigger<?>> T register(String name, T trigger) {
+        TRIGGERS.put(Constants.id(name), trigger);
+        return trigger;
+    }
 
-        public void bind(Supplier<T> supplier) {
-            this.trigger = supplier;
-        }
-
-        public T get() {
-            return this.trigger.get();
-        }
+    public static Map<Identifier, CriterionTrigger<?>> getTriggers() {
+        return TRIGGERS;
     }
 }
-

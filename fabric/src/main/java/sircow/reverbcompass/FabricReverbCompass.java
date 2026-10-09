@@ -1,12 +1,12 @@
 package sircow.reverbcompass;
 
 import net.fabricmc.api.ModInitializer;
-import sircow.reverbcompass.components.FabricModComponents;
+import sircow.reverbcompass.component.FabricModComponents;
 import sircow.reverbcompass.recipe.FabricModRecipes;
 import sircow.reverbcompass.sound.FabricModSounds;
 import sircow.reverbcompass.trigger.FabricModTriggers;
 
-public class ReverbCompass implements ModInitializer {
+public class FabricReverbCompass implements ModInitializer {
     @Override
     public void onInitialize() {
         CommonClass.init();
