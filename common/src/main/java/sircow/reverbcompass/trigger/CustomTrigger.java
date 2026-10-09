@@ -10,7 +10,6 @@ import org.jspecify.annotations.NonNull;
 import java.util.Optional;
 
 public class CustomTrigger extends SimpleCriterionTrigger<CustomTrigger.Instance> {
-
     @Override
     public @NonNull Codec<Instance> codec() {
         return Instance.CODEC;

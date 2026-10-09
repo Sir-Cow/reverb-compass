@@ -1,32 +1,35 @@
 package sircow.reverbcompass.sound;
 
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import sircow.reverbcompass.Constants;
 
-import java.util.function.Supplier;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ModSounds {
-    public static final SoundEntry REVERB_COMPASS_USE = new SoundEntry("reverb_compass_use", 16.0F);
-    public static final SoundEntry REVERB_COMPASS_USE1 = new SoundEntry("enderpearl_land_silent", 16.0F);
-    public static final SoundEntry REVERB_COMPASS_USE2 = new SoundEntry("sculk_catalyst_break_silent", 16.0F);
-    public static final SoundEntry REVERB_COMPASS_USE3 = new SoundEntry("ender_eye_dead_silent", 16.0F);
+    private static final Map<Identifier, SoundEvent> SOUNDS = new LinkedHashMap<>();
 
-    public static class SoundEntry {
-        public final String id;
-        public final Supplier<SoundEvent> factory;
-        private Supplier<SoundEvent> event;
+    public static final SoundEvent REVERB_COMPASS_USE = register("reverb_compass_use");
+    public static final SoundEvent REVERB_COMPASS_USE1 = register("enderpearl_land_silent");
+    public static final SoundEvent REVERB_COMPASS_USE2 = register("sculk_catalyst_break_silent");
+    public static final SoundEvent REVERB_COMPASS_USE3 = register("ender_eye_dead_silent");
 
-        public SoundEntry(String name, float range) {
-            this.id = name;
-            this.factory = () -> SoundEvent.createFixedRangeEvent(Constants.id(name), range);
-        }
+    private static SoundEvent register(String name) {
+        return register(Constants.id(name));
+    }
 
-        public void bind(Supplier<SoundEvent> supplier) {
-            this.event = supplier;
-        }
+    private static SoundEvent register(Identifier name) {
+        return register(name, name);
+    }
 
-        public SoundEvent get() {
-            return this.event.get();
-        }
+    private static SoundEvent register(Identifier name, Identifier location) {
+        SoundEvent soundEvent = SoundEvent.createVariableRangeEvent(location);
+        SOUNDS.put(name, soundEvent);
+        return soundEvent;
+    }
+
+    public static Map<Identifier, SoundEvent> getSounds() {
+        return SOUNDS;
     }
 }
