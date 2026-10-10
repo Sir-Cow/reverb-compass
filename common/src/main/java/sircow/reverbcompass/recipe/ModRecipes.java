@@ -1,29 +1,24 @@
 package sircow.reverbcompass.recipe;
 
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import sircow.reverbcompass.Constants;
 
-import java.util.function.Supplier;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ModRecipes {
-    public static final RecipeEntry<ReverbCompassRecipe> REVERB_COMPASS = new RecipeEntry<>("reverb_compass", () -> new CustomRecipe.Serializer<>(ReverbCompassRecipe::new));
+    private static final Map<Identifier, RecipeSerializer<?>> RECIPES = new LinkedHashMap<>();
 
-    public static class RecipeEntry<T extends CustomRecipe> {
-        public final String id;
-        public final Supplier<RecipeSerializer<T>> factory;
-        private Supplier<RecipeSerializer<T>> serializer;
+    public static final RecipeSerializer<ReverbCompassRecipe> REVERB_COMPASS_SERIALIZER = register("reverb_compass", new CustomRecipe.Serializer<>(ReverbCompassRecipe::new));
 
-        public RecipeEntry(String id, Supplier<RecipeSerializer<T>> factory) {
-            this.id = id;
-            this.factory = factory;
-        }
+    private static <T extends RecipeSerializer<?>> T register(String name, T serializer) {
+        RECIPES.put(Constants.id(name), serializer);
+        return serializer;
+    }
 
-        public void bind(Supplier<RecipeSerializer<T>> supplier) {
-            this.serializer = supplier;
-        }
-
-        public RecipeSerializer<T> get() {
-            return this.serializer.get();
-        }
+    public static Map<Identifier, RecipeSerializer<?>> getRecipes() {
+        return RECIPES;
     }
 }

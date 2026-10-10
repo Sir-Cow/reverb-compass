@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import sircow.reverbcompass.components.ModComponents;
+import sircow.reverbcompass.component.ModComponents;
 import sircow.reverbcompass.sound.ModSounds;
 import sircow.reverbcompass.trigger.ModTriggers;
 
@@ -25,7 +25,7 @@ public class ItemStackMixin {
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void reverbCompass$onUse(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack stack = (ItemStack) (Object) this;
-        if (!(stack.getItem() instanceof CompassItem) || !stack.has(ModComponents.REVERB_COMPASS.get())) return;
+        if (!(stack.getItem() instanceof CompassItem) || !stack.has(ModComponents.REVERB_COMPASS)) return;
 
         LodestoneTracker tracker = stack.get(DataComponents.LODESTONE_TRACKER);
         if (tracker == null || tracker.target().isEmpty()) return;
@@ -36,28 +36,21 @@ public class ItemStackMixin {
         if (!level.isClientSide()) {
             BlockPos pos = globalPos.pos().above();
             player.teleportTo(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE1.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE2.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE3.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE, SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE1, SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE2, SoundSource.PLAYERS, 1.0F, 1.0F);
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.REVERB_COMPASS_USE3, SoundSource.PLAYERS, 1.0F, 1.0F);
 
-            if (player instanceof ServerPlayer serverPlayer) {
-                ModTriggers.USE_REVERB_COMPASS.get().trigger(serverPlayer);
-            }
+            if (player instanceof ServerPlayer serverPlayer) ModTriggers.USE_REVERB_COMPASS.trigger(serverPlayer);
 
             ItemStack result = stack.copy();
             result.setCount(1);
-            result.remove(ModComponents.REVERB_COMPASS.get());
+            result.remove(ModComponents.REVERB_COMPASS);
             stack.shrink(1);
 
-            if (stack.isEmpty()) {
-                player.setItemInHand(hand, result);
-            }
-            else {
-                player.getInventory().placeItemBackInInventory(result);
-            }
+            if (stack.isEmpty()) player.setItemInHand(hand, result);
+            else player.getInventory().placeItemBackInInventory(result);
         }
-
         cir.setReturnValue(InteractionResult.SUCCESS_SERVER);
     }
 }

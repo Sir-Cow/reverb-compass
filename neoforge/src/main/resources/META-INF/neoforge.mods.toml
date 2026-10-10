@@ -1,14 +1,14 @@
 modLoader = "javafml"
 loaderVersion = "${neoforge_loader_version_range}"
 license = "${license}"
-issueTrackerURL="https://github.com/Sir-Cow/reverb-compass/issues"
+issueTrackerURL = "https://github.com/Sir-Cow/reverb-compass/issues"
 [[mods]]
 modId = "${mod_id}"
 version = "${version}"
 displayName = "${mod_name}"
-updateJSONURL= "https://api.modrinth.com/updates/AYxVVyKZ/forge_updates.json?neoforge=only"
-displayURL= "https://github.com/Sir-Cow/reverb-compass"
-logoFile="icon.png"
+updateJSONURL = "https://api.modrinth.com/updates/AYxVVyKZ/forge_updates.json?neoforge=only"
+displayURL= "https://teampreserved.com/reverb-compass"
+logoFile = "icon.png"
 credits="${credits}"
 authors = "${mod_author}"
 description = '''${description}'''
@@ -16,6 +16,8 @@ description = '''${description}'''
 config = "${mod_id}.mixins.json"
 [[mixins]]
 config = "${mod_id}.neoforge.mixins.json"
+[[mixins]]
+config = "${mod_id}.jei.mixins.json"
 [[dependencies.${mod_id}]]
 modId = "neoforge"
 type="required"

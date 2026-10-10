@@ -8,7 +8,7 @@
         "${mod_author}"
     ],
     "contact": {
-        "homepage": "https://modrinth.com/mod/reverb-compass",
+        "homepage": "https://teampreserved.com/reverb-compass",
         "sources": "https://github.com/Sir-Cow/reverb-compass",
         "issues": "https://github.com/Sir-Cow/reverb-compass/issues"
     },
@@ -17,21 +17,30 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-          "sircow.reverbcompass.ReverbCompass"
+            "sircow.reverbcompass.FabricReverbCompass"
+        ],
+        "jei_mod_plugin": [
+            "sircow.reverbcompass.compat.jei.ReverbCompassJeiPlugin"
         ]
     },
     "mixins": [
         "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
+        "${mod_id}.fabric.mixins.json",
+        "${mod_id}.jei.mixins.json"
     ],
     "depends": {
-        "fabricloader": ">=0.19.0",
+        "fabricloader": ">=${fabric_loader_version}",
         "fabric-api": "*",
         "minecraft": "~${minecraft_version}",
         "java": ">=${java_version}"
     },
     "custom": {
         "modmenu": {
+            "links": {
+                "modmenu.website": "https://teampreserved.com/reverb-compass",
+                "modmenu.modrinth": "https://modrinth.com/project/AYxVVyKZ",
+                "modmenu.curseforge": "https://curseforge.com/minecraft/mc-mods/reverb-compass"
+            },
             "update_checker": true
         }
     }

@@ -12,8 +12,8 @@ neoForge {
 }
 
 dependencies {
-    compileOnly('net.fabricmc:sponge-mixin:0.17.3+mixin.0.8.7')
-    compileOnly(annotationProcessor('io.github.llamalad7:mixinextras-common:0.5.4'))
+    compileOnly('net.fabricmc:sponge-mixin:0.17.4+mixin.0.8.7')
+    compileOnly(annotationProcessor('io.github.llamalad7:mixinextras-common:0.5.5'))
 }
 
 configurations {
@@ -24,10 +24,6 @@ configurations {
     commonResources {
         canBeResolved = false
         canBeConsumed = true
-    }
-
-    [apiElements, runtimeElements].each { cfg ->
-        cfg.outgoing.capability("${project.group}:${mod_id}:${project.version}")
     }
 }
 
@@ -44,6 +40,7 @@ def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', Strin
         }
     }
 }
+
 sourceSets.configureEach {
     [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
         configurations.named(variant) {
