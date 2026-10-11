@@ -1,32 +1,27 @@
 package sircow.reverbcompass.sound;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import sircow.reverbcompass.Constants;
 
-import java.util.function.Supplier;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class ModSounds {
-    public static final SoundEntry REVERB_COMPASS_USE = new SoundEntry("reverb_compass_use", 16.0F);
-    public static final SoundEntry REVERB_COMPASS_USE1 = new SoundEntry("enderpearl_land_silent", 16.0F);
-    public static final SoundEntry REVERB_COMPASS_USE2 = new SoundEntry("sculk_catalyst_break_silent", 16.0F);
-    public static final SoundEntry REVERB_COMPASS_USE3 = new SoundEntry("ender_eye_dead_silent", 16.0F);
+    private static final Map<ResourceLocation, SoundEvent> SOUNDS = new LinkedHashMap<>();
 
-    public static class SoundEntry {
-        public final String id;
-        public final Supplier<SoundEvent> factory;
-        private Supplier<SoundEvent> event;
+    public static final SoundEvent REVERB_COMPASS_USE = register("reverb_compass_use", 16.0F);
+    public static final SoundEvent REVERB_COMPASS_USE1 = register("enderpearl_land_silent", 16.0F);
+    public static final SoundEvent REVERB_COMPASS_USE2 = register("sculk_catalyst_break_silent", 16.0F);
+    public static final SoundEvent REVERB_COMPASS_USE3 = register("ender_eye_dead_silent", 16.0F);
 
-        public SoundEntry(String name, float range) {
-            this.id = name;
-            this.factory = () -> SoundEvent.createFixedRangeEvent(Constants.id(name), range);
-        }
+    private static SoundEvent register(String name, float range) {
+        SoundEvent soundEvent = SoundEvent.createFixedRangeEvent(Constants.id(name), range);
+        SOUNDS.put(Constants.id(name), soundEvent);
+        return soundEvent;
+    }
 
-        public void bind(Supplier<SoundEvent> supplier) {
-            this.event = supplier;
-        }
-
-        public SoundEvent get() {
-            return this.event.get();
-        }
+    public static Map<ResourceLocation, SoundEvent> getSounds() {
+        return SOUNDS;
     }
 }

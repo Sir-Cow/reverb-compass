@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 public class CustomTrigger extends SimpleCriterionTrigger<CustomTrigger.Instance> {
-
     @Override
     public @NotNull Codec<Instance> codec() {
         return Instance.CODEC;

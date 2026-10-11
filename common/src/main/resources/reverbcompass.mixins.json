@@ -2,11 +2,13 @@
   "required": true,
   "minVersion": "0.8",
   "package": "sircow.reverbcompass.mixin",
-  "refmap": "${mod_id}.refmap.json",
-  "compatibilityLevel": "JAVA_18",
+  "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CompassItemMixin",
-    "ItemStackMixin"
+    "IngredientMixin",
+    "ItemStackMixin",
+    "ServerPlaceRecipeMixin",
+    "StackedContentsMixin"
   ],
   "client": [],
   "server": [],
@@ -17,4 +19,3 @@
     "requireAnnotations": true
   }
 }
-
